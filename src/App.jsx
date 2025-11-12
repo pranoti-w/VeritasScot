@@ -154,14 +154,14 @@ function Feature({ title, children }) {
 // --- Smarter Verify Page ---
 function Verify({ onCreateCase }) {
   const [input, setInput] = useState("");
-  const [status, setStatus] = useState('idle');
+  const [status, setStatus] = useState("idle");
   const [result, setResult] = useState(null);
 
   // --- Smarter matching function ---
   function findRelevantSources(claimText) {
     const claim = claimText.toLowerCase();
-    const matches = MOCK_SOURCES.filter(source =>
-      source.tags.some(tag => claim.includes(tag))
+    const matches = MOCK_SOURCES.filter((source) =>
+      source.tags.some((tag) => claim.includes(tag))
     );
 
     if (matches.length === 0) {
@@ -172,34 +172,49 @@ function Verify({ onCreateCase }) {
     return matches;
   }
 
+  // --- Determine verdict based on matched evidence ---
+  function calculateVerdict(evidence) {
+    if (evidence.some(ev => ev.tags.some(tag => input.toLowerCase().includes(tag)))) {
+      // Strong match
+      return { verdict: "True", confidence: 90 };
+    }
+    if (evidence.length > 1) {
+      // Partial match
+      return { verdict: "Partly true", confidence: 75 };
+    }
+    // Weak/no match
+    return { verdict: "Unsupported", confidence: 60 };
+  }
+
   function submitClaim(e) {
     e.preventDefault();
     if (!input.trim()) return;
-    setStatus('verifying');
+
+    setStatus("verifying");
     setResult(null);
 
     setTimeout(() => {
       const evidence = findRelevantSources(input);
-      const verdicts = ['True', 'Partly true', 'Unsupported', 'False'];
-      const verdict = verdicts[Math.floor(Math.random() * verdicts.length)];
-      const confidence = Math.round(60 + Math.random() * 40);
+      const { verdict, confidence } = calculateVerdict(evidence);
 
       setResult({
         claim: input,
         verdict,
         confidence,
         evidence,
-        timestamp: new Date().toISOString()
+        timestamp: new Date().toISOString(),
       });
 
-      setStatus('done');
-    }, 1000 + Math.random() * 1000);
+      setStatus("done");
+    }, 1000 + Math.random() * 800); // slight delay for demo realism
   }
 
   return (
     <div className="max-w-4xl mx-auto p-6">
       <h2 className="text-2xl font-semibold">Verify a claim</h2>
-      <p className="mt-2 text-slate-600">Paste text, a URL, or upload a screenshot (mock). The demo performs a simulated verification and returns an evidence card.</p>
+      <p className="mt-2 text-slate-600">
+        Paste text, a URL, or upload a screenshot (mock). The demo performs a simulated verification and returns an evidence card.
+      </p>
 
       <form onSubmit={submitClaim} className="mt-4">
         <textarea
@@ -210,29 +225,42 @@ function Verify({ onCreateCase }) {
           placeholder="e.g. 'The council has abolished emergency housing support'"
         />
         <div className="mt-3 flex gap-3">
-          <button type="submit" className="px-4 py-2 rounded-md bg-scotblue text-white">Run verification</button>
-          <button type="button" onClick={() => { setInput(''); setResult(null); setStatus('idle'); }} className="px-4 py-2 rounded-md border">Reset</button>
+          <button type="submit" className="px-4 py-2 rounded-md bg-scotblue text-white">
+            Run verification
+          </button>
+          <button
+            type="button"
+            onClick={() => {
+              setInput("");
+              setResult(null);
+              setStatus("idle");
+            }}
+            className="px-4 py-2 rounded-md border"
+          >
+            Reset
+          </button>
         </div>
       </form>
 
       <div className="mt-6">
-        {status === 'verifying' && (
+        {status === "verifying" && (
           <div className="p-4 bg-white border rounded-md flex items-center gap-4">
             <div className="animate-pulse w-10 h-10 bg-slate-200 rounded-full" />
             <div>
               <div className="font-medium">Verifying claim...</div>
-              <div className="text-sm text-slate-500">Matching against legislation, guidance and datasets</div>
+              <div className="text-sm text-slate-500">Matching against legislation, guidance, and datasets</div>
             </div>
           </div>
         )}
 
-        {status === 'done' && result && (
+        {status === "done" && result && (
           <EvidenceCard result={result} onCreateCase={onCreateCase} />
         )}
       </div>
     </div>
   );
 }
+
 
 // --- Evidence Card ---
 function EvidenceCard({ result, onCreateCase }) {
@@ -248,8 +276,8 @@ function EvidenceCard({ result, onCreateCase }) {
         confidence: result.confidence,
         evidence: result.evidence,
         createdAt: new Date().toISOString(),
-        status: 'Open',
-        assignedTo: 'Constituency Office'
+        status: "Open",
+        assignedTo: "Constituency Office"
       };
       onCreateCase(caseObj);
       setCreating(false);
@@ -275,14 +303,18 @@ function EvidenceCard({ result, onCreateCase }) {
         <h4 className="font-medium">Primary sources matched</h4>
         <ul className="mt-2 space-y-2">
           {result.evidence.map(ev => {
-            // find tags that match this claim
+            // Highlight matched tags
             const matchedTags = ev.tags.filter(tag => result.claim.toLowerCase().includes(tag));
             return (
               <li key={ev.id} className="p-3 border rounded-md">
-                <a href={ev.url} target="_blank" rel="noreferrer" className="font-medium text-scotblue">{ev.title}</a>
+                <a href={ev.url} target="_blank" rel="noreferrer" className="font-medium text-scotblue">
+                  {ev.title}
+                </a>
                 <div className="text-sm text-slate-600 mt-1">{ev.summary}</div>
                 {matchedTags.length > 0 && (
-                  <div className="mt-1 text-xs text-green-600">Matched tags: {matchedTags.join(", ")}</div>
+                  <div className="mt-1 text-xs text-green-600">
+                    Matched tags: {matchedTags.join(", ")}
+                  </div>
                 )}
               </li>
             );
@@ -291,11 +323,18 @@ function EvidenceCard({ result, onCreateCase }) {
       </div>
 
       <div className="mt-4 flex gap-3">
-        <button onClick={raiseConcern} disabled={creating} className="px-4 py-2 rounded-md bg-rose-600 text-white">Raise concern</button>
+        <button
+          onClick={raiseConcern}
+          disabled={creating}
+          className="px-4 py-2 rounded-md bg-rose-600 text-white"
+        >
+          Raise concern
+        </button>
       </div>
     </div>
   );
 }
+
 
 // --- Raise Concern Page ---
 function RaiseConcern({ prefill, onCreateCase }) {
