@@ -222,7 +222,7 @@ function Verify({ onCreateCase }) {
           onChange={(e) => setInput(e.target.value)}
           rows={5}
           className="w-full border rounded-md p-3"
-          placeholder="e.g. 'The council has abolished emergency housing support'"
+          placeholder="e.g. 'The council is adding more affordable homes'"
         />
         <div className="mt-3 flex gap-3">
           <button type="submit" className="px-4 py-2 rounded-md bg-scotblue text-white">
