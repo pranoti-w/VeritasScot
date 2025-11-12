@@ -52,22 +52,26 @@ let nextCaseId = 1001;
 function generateCaseId() { return `VS-${nextCaseId++}`; }
 
 // --- Top Navigation ---
+// --- Updated TopNav ---
 function TopNav() {
   return (
     <nav className="bg-white border-b shadow-sm">
       <div className="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
-        <div className="flex items-center gap-4">
-          <Link to="/" className="text-xl font-semibold text-slate-800 flex items-center gap-2">
+        {/* Left: Logo, title, subtitle */}
+        <div className="flex flex-col">
+          <div className="flex items-center gap-2">
             <img
               src="https://upload.wikimedia.org/wikipedia/commons/1/10/Flag_of_Scotland.svg"
               alt="Scottish Flag"
               className="w-6 h-6 rounded-sm"
             />
-            VeritasScot
-          </Link>
-          <span className="text-sm text-slate-500">Fìor-fhiosrachadh — Trusted civic information for every Scot</span>
+            <span className="text-xl font-semibold text-slate-800">VeritasScot</span>
+          </div>
+          <span className="text-sm text-slate-500 mt-1">Fìor-fhiosrachadh — Trusted civic information for every Scot</span>
         </div>
-        <div className="flex items-center gap-2">
+
+        {/* Right: Navigation links */}
+        <div className="flex items-center gap-2 mt-1">
           <Link to="/verify" className="px-3 py-2 rounded-md bg-scotblue text-white text-sm">Verify a claim</Link>
           <Link to="/raise" className="px-3 py-2 rounded-md border text-sm">Raise a concern</Link>
           <Link to="/dashboard" className="px-3 py-2 rounded-md text-sm">Dashboard</Link>
@@ -81,31 +85,62 @@ function TopNav() {
 // --- Home Page ---
 function Home() {
   const navigate = useNavigate();
+
   return (
     <div className="max-w-5xl mx-auto p-6">
       <div className="rounded-2xl bg-gradient-to-r from-white to-slate-50 p-8 shadow-lg">
-        <h1 className="text-3xl font-bold flex items-center gap-2">
-          <img
-            src="https://upload.wikimedia.org/wikipedia/commons/1/10/Flag_of_Scotland.svg"
-            alt="Scottish Flag"
-            className="w-8 h-8 rounded-sm"
-          />
-          VeritasScot — Fìor-fhiosrachadh
-</       h1>
-        <p className="mt-3 text-slate-700">Paste a claim or URL, get an evidence card referencing primary sources, then choose to get help from your MP, council or regulator with one click.</p>
-        <div className="mt-6 flex gap-3">
-          <button onClick={() => navigate('/verify')} className="px-5 py-3 rounded-md bg-scotblue text-white">Try it now — verify a claim</button>
-          <button onClick={() => navigate('/raise')} className="px-5 py-3 rounded-md border">Raise a concern</button>
+        
+        {/* Homepage title with flag and subtitle */}
+        <div className="flex flex-col items-start gap-1 mb-6">
+          <div className="flex items-center gap-2">
+            <img
+              src="https://upload.wikimedia.org/wikipedia/commons/1/10/Flag_of_Scotland.svg"
+              alt="Scottish Flag"
+              className="w-8 h-8 rounded-sm"
+            />
+            <span className="text-3xl font-bold text-slate-800">VeritasScot</span>
+          </div>
+          <span className="text-sm text-slate-500">Fìor-fhiosrachadh — Trusted civic information for every Scot</span>
         </div>
-        <div className="mt-8 grid grid-cols-3 gap-4">
-          <Feature title="Authoritative sources">Scotland-first source index (legislation, guidance, datasets)</Feature>
-          <Feature title="Evidence cards">Short verdicts with primary-document links</Feature>
-          <Feature title="One-click action">Pre-filled reports routed to the right office</Feature>
+
+        {/* Description */}
+        <p className="mt-3 text-slate-700">
+          Paste a claim or URL, get an evidence card referencing primary sources, then choose to get help from your MP, council, or regulator with one click.
+        </p>
+
+        {/* Buttons */}
+        <div className="mt-6 flex gap-3">
+          <button
+            onClick={() => navigate('/verify')}
+            className="px-5 py-3 rounded-md bg-scotblue text-white"
+          >
+            Try it now — verify a claim
+          </button>
+          <button
+            onClick={() => navigate('/raise')}
+            className="px-5 py-3 rounded-md border"
+          >
+            Raise a concern
+          </button>
+        </div>
+
+        {/* Features */}
+        <div className="mt-8 grid grid-cols-1 md:grid-cols-3 gap-4">
+          <Feature title="Authoritative sources">
+            Scotland-first source index (legislation, guidance, datasets)
+          </Feature>
+          <Feature title="Evidence cards">
+            Short verdicts with primary-document links
+          </Feature>
+          <Feature title="One-click action">
+            Pre-filled reports routed to the right office
+          </Feature>
         </div>
       </div>
     </div>
   );
 }
+
 
 function Feature({ title, children }) {
   return (
