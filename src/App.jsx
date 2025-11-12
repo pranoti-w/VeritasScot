@@ -57,7 +57,14 @@ function TopNav() {
     <nav className="bg-white border-b shadow-sm">
       <div className="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
         <div className="flex items-center gap-4">
-          <Link to="/" className="text-xl font-semibold text-slate-800">VeritasScot</Link>
+          <Link to="/" className="text-xl font-semibold text-slate-800 flex items-center gap-2">
+            <img
+              src="https://upload.wikimedia.org/wikipedia/commons/1/10/Flag_of_Scotland.svg"
+              alt="Scottish Flag"
+              className="w-6 h-6 rounded-sm"
+            />
+            VeritasScot
+          </Link>
           <span className="text-sm text-slate-500">Fìor-fhiosrachadh — Trusted civic information for every Scot</span>
         </div>
         <div className="flex items-center gap-2">
@@ -70,13 +77,21 @@ function TopNav() {
   );
 }
 
+
 // --- Home Page ---
 function Home() {
   const navigate = useNavigate();
   return (
     <div className="max-w-5xl mx-auto p-6">
       <div className="rounded-2xl bg-gradient-to-r from-white to-slate-50 p-8 shadow-lg">
-        <h1 className="text-3xl font-bold">VeritasScot — Fìor-fhiosrachadh</h1>
+        <h1 className="text-3xl font-bold flex items-center gap-2">
+          <img
+            src="https://upload.wikimedia.org/wikipedia/commons/1/10/Flag_of_Scotland.svg"
+            alt="Scottish Flag"
+            className="w-8 h-8 rounded-sm"
+          />
+          VeritasScot — Fìor-fhiosrachadh
+</       h1>
         <p className="mt-3 text-slate-700">Paste a claim or URL, get an evidence card referencing primary sources, then choose to get help from your MP, council or regulator with one click.</p>
         <div className="mt-6 flex gap-3">
           <button onClick={() => navigate('/verify')} className="px-5 py-3 rounded-md bg-scotblue text-white">Try it now — verify a claim</button>
