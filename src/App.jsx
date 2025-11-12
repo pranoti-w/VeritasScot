@@ -67,7 +67,7 @@ function TopNav() {
             />
             <span className="text-xl font-semibold text-slate-800">VeritasScot</span>
           </div>
-          <span className="text-sm text-slate-500 mt-1">Fìor-fhiosrachadh — Trusted civic information for every Scot</span>
+          <span className="text-sm text-slate-500 mt-1">Fìor-fhiosrachadh — Trusted civic information for everyone</span>
         </div>
 
         {/* Right: Navigation links */}
