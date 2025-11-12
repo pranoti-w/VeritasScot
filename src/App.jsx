@@ -6,7 +6,7 @@ const MOCK_SOURCES = [
   {
     id: 1,
     title: "Affordable Housing Supply Programme 2023–2026",
-    url: "hhttps://www.gov.scot/policies/more-homes/affordable-housing-supply/",
+    url: "https://www.gov.scot/policies/more-homes/affordable-housing-supply/",
     summary: "Government initiative funding affordable and social housing units.",
     tags: ["housing", "home", "affordable", "rent", "construction"]
   },
