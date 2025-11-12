@@ -6,14 +6,14 @@ const MOCK_SOURCES = [
   {
     id: 1,
     title: "Affordable Housing Supply Programme 2023–2026",
-    url: "https://www.gov.scot/publications/affordable-housing-supply-programme/",
+    url: "hhttps://www.gov.scot/policies/more-homes/affordable-housing-supply/",
     summary: "Government initiative funding affordable and social housing units.",
     tags: ["housing", "home", "affordable", "rent", "construction"]
   },
   {
     id: 2,
     title: "Scottish Child Payment Expansion Policy",
-    url: "https://www.gov.scot/policies/social-security/child-benefit/",
+    url: "https://www.gov.scot/policies/social-security/two-child-limit-payment/",
     summary: "Expands child payment support and family benefit access in Scotland.",
     tags: ["child", "family", "benefit", "support", "welfare"]
   },
@@ -33,15 +33,15 @@ const MOCK_SOURCES = [
   },
   {
     id: 5,
-    title: "Health and Social Care Integration Framework",
-    url: "https://www.gov.scot/policies/health-and-social-care/",
-    summary: "Framework for improving coordination between health and social care services.",
-    tags: ["health", "care", "NHS", "social", "wellbeing"]
+    title: "Getting it right for every child (GIRFEC)",
+    url: "https://www.gov.scot/policies/girfec/whole-family-wellbeing-funding/",
+    summary: "Investing in holistic family support to ensure that families can get the help they need, where and when they need it. ",
+    tags: ["family", "child", "social", "wellbeing"]
   },
   {
     id: 6,
     title: "Education Reform Consultation 2024",
-    url: "https://www.gov.scot/policies/education-reform/",
+    url: "https://www.gov.scot/policies/schools/education-reform/",
     summary: "Consultation outlining Scotland’s education reform strategy and funding.",
     tags: ["education", "school", "university", "students", "learning"]
   }
